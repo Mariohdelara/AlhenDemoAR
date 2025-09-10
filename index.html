@@ -39,14 +39,29 @@
   </model-viewer>
 
   <script>
-    const mv = document.getElementById('viewer');
-    mv.addEventListener('ar-status', (e) => {
-      if (e.detail.status === 'failed') {
-        console.warn('AR launch failed. On iOS, add a USDZ and serve over HTTPS.');
-      }
+    document.addEventListener('DOMContentLoaded', () => {
+        const modelViewer = document.querySelector('#viewer');
+
+        modelViewer.addEventListener('load', async () => {
+            // DEBUG: Log all materials found in the model
+            console.log("Model loaded. Materials available:", modelViewer.model.materials);
+
+            // Target the first material
+            const material = modelViewer.model.materials[0];
+
+            // DEBUG: Log the specific material we are trying to change
+            console.log("Attempting to apply texture to this material:", material);
+
+            // Create and apply the texture
+            const texture = await modelViewer.createTexture('encino_rojo.png');
+            material.pbrMetallicRoughness.baseColorTexture.setTexture(texture);
+
+            console.log("Texture application command sent successfully.");
+        });
     });
-  </script>
+</script>
 
 </body>
 </html>
+
 
