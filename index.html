@@ -4,63 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alhen AR Viewer</title>
-
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
   <style>
-    :root {
-      --alhen-brown: #8a5a2b; /* A rich, wood-tone brown for branding */
-    }
-
-    html, body {
-      height: 100%;
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: #121212; /* A dark, modern background */
-      color: #ffffff;
-    }
-
-    #ar-container {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    header {
-      padding: 1rem;
-      background-color: rgba(0, 0, 0, 0.2);
-      text-align: center;
-      font-weight: 600;
-    }
-
-    model-viewer {
-      flex-grow: 1; /* Allows the viewer to take up all available space */
-      width: 100%;
-      height: 100%;
-      --ar-button-display: none; /* Hide the default AR button */
-    }
-
+    :root { --alhen-brown: #8a5a2b; }
+    html, body { height: 100%; margin: 0; font-family: system-ui, sans-serif; background-color: #121212; color: #ffffff; }
+    #ar-container { width: 100%; height: 100%; display: flex; flex-direction: column; }
+    header { padding: 1rem; background-color: rgba(0, 0, 0, 0.2); text-align: center; font-weight: 600; }
+    model-viewer { flex-grow: 1; width: 100%; height: 100%; --ar-button-display: none; }
     #custom-ar-button {
-      position: absolute;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      
-      background-color: var(--alhen-brown);
-      color: white;
-      font-size: 16px;
-      font-weight: 700;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background-color: var(--alhen-brown); color: white; font-size: 16px; font-weight: 700;
+      padding: 12px 24px; border: none; border-radius: 30px; cursor: pointer;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-      transition: transform 0.2s ease-out;
-    }
-
-    #custom-ar-button:hover {
-      transform: translateX(-50%) scale(1.05);
     }
   </style>
 </head>
@@ -71,44 +27,20 @@
 
     <model-viewer
       id="ar-viewer"
-      src="AlhenDemo.glb"
-      alt="A 3D model of an Alhen product"
+      src="AlhenDemo.glb" alt="A 3D model of an Alhen product"
       camera-controls
       ar
       ar-modes="webxr scene-viewer quick-look"
-      
       environment-image="neutral"
       exposure="1.3"
       shadow-intensity="1.0">
       
-      <button slot="ar-button" id="custom-ar-button">
-        View in Your Space
-      </button>
-
+      <button slot="ar-button" id="custom-ar-button">View in Your Space</button>
     </model-viewer>
   </div>
-
-  <script>
-    (async () => {
-      const modelViewer = document.querySelector('#ar-viewer');
-
-      try {
-        await modelViewer.updateComplete; // Wait for model-viewer to be ready
-        
-        const material = modelViewer.model.materials[0];
-        
-        // Set the base color to a solid brown [R, G, B, A]
-        // This is the only way to color this specific model.
-        const alhenBrown = [0.54, 0.31, 0.17, 1];
-        material.pbrMetallicRoughness.setBaseColorFactor(alhenBrown);
-        
-        console.log("✅ Base color successfully set to brown.");
-
-      } catch (error) {
-        console.error("❌ Failed to set base color:", error);
-      }
-    })();
-  </script>
+  </body>
+</html>
 
 </body>
 </html>
+
